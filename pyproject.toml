@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "vertex-ai-proxy"
+version = "0.1.0"
+description = ""
+authors = ["Wenqing Yu <yuwenqingisu@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+fastapi = "^0.115.3"
+uvicorn = "^0.32.0"
+litellm = "^1.50.4"
+google-cloud-aiplatform = "^1.70.0"
+pyyaml = "^6.0.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

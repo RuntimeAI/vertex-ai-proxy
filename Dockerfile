@@ -1,18 +1,31 @@
-FROM python:3.9-slim
+FROM python:3.10-slim
 
 WORKDIR /app
 
-# Install poetry
-RUN pip install poetry
+# Install system dependencies and Google Cloud SDK
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    curl \
+    gnupg \
+    && echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | tee -a /etc/apt/sources.list.d/google-cloud-sdk.list \
+    && curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key --keyring /usr/share/keyrings/cloud.google.gpg add - \
+    && apt-get update && apt-get install -y google-cloud-sdk \
+    && rm -rf /var/lib/apt/lists/*
 
-# Copy poetry files
+# Install poetry
+RUN pip install --no-cache-dir poetry==1.4.2
+
+# Copy only requirements to cache them in docker layer
 COPY pyproject.toml poetry.lock* ./
 
-# Install dependencies
+# Project initialization:
 RUN poetry config virtualenvs.create false \
-    && poetry install --no-dev --no-interaction --no-ansi
+    && poetry install --no-root --no-dev --no-interaction --no-ansi
 
-# Copy the project files
+# Copy project
 COPY . .
+
+# Expose the port the app runs on
+EXPOSE 8000
 
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]

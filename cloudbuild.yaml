@@ -1,0 +1,26 @@
+steps:
+  # Build the container image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/autogenstudio_knn3/vertex-ai-proxy', '.']
+
+  # Push the container image to Container Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/autogenstudio_knn3/vertex-ai-proxy']
+
+  # Deploy container image to Cloud Run
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args:
+    - 'run'
+    - 'deploy'
+    - 'vertex-ai-proxy'
+    - '--image'
+    - 'gcr.io/autogenstudio_knn3/vertex-ai-proxy'
+    - '--region'
+    - 'asia-southeast1'
+    - '--platform'
+    - 'managed'
+    - '--allow-unauthenticated'
+
+images:
+  - 'gcr.io/autogenstudio_knn3/vertex-ai-proxy'

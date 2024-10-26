@@ -12,6 +12,7 @@ uvicorn = "^0.32.0"
 litellm = "^1.50.4"
 google-cloud-aiplatform = "^1.70.0"
 pyyaml = "^6.0.2"
+langfuse = "^2.53.1"
 
 
 [build-system]

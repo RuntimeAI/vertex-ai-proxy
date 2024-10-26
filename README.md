@@ -91,16 +91,77 @@ To run the application locally:
    uvicorn main:app --host 0.0.0.0 --port 8000
    ```
 
+
 ## Testing
 
-To test the deployed API, you can use the following curl command:
+You can test the Vertex AI Proxy using curl commands. Here are some examples:
+
+### 1. Basic Gemini-1.5-pro with Temperature Adjustment
 
 ```
-curl -X POST https://vertexai.cloud.typox.ai/v1/chat/completions \
-  -H "Content-Type: application/json" \
-  -d '{
-    "model": "vertex_ai/gemini-1.5-pro",
-    "messages": [{"role": "user", "content": "Hello, how are you?"}]
-  }'
+bash
+curl -X POST https://vertex-ai-proxy-979822622172.asia-southeast1.run.app/v1/chat/completions \
+-H "Content-Type: application/json" \
+-d '{
+"model": "vertex_ai/gemini-1.5-pro",
+"messages": [
+{"role": "user", "content": "Generate a creative story about a time-traveling scientist in exactly 50 words."}
+],
+"temperature": 0.9
+}'
 ```
+This request uses the Gemini-1.5-pro model with a higher temperature (0.9) for more creative outputs.
+
+### 2. Gemini-1.5-flash Multi-turn Conversation
+```
+bash
+curl -X POST https://vertex-ai-proxy-979822622172.asia-southeast1.run.app/v1/chat/completions \
+-H "Content-Type: application/json" \
+-d '{
+"model": "vertex_ai/gemini-1.5-flash",
+"messages": [
+{"role": "user", "content": "I want to learn a new programming language. What do you suggest?"},
+{"role": "assistant", "content": "Great! There are many programming languages to choose from. To give you the best suggestion, could you tell me more about your goals? Are you interested in web development, data science, mobile apps, or something else?"},
+{"role": "user", "content": "I'm interested in data science and machine learning."}
+]
+}'
+```
+
+This request demonstrates a multi-turn conversation using the Gemini-1.5-flash model, which is optimized for faster responses.
+
+### 3. Grounding Example
+```
+bash
+curl -X POST https://vertex-ai-proxy-979822622172.asia-southeast1.run.app/v1/chat/completions \
+-H "Content-Type: application/json" \
+-d '{
+"model": "vertex_ai/gemini-1.5-pro",
+"messages": [
+{"role": "user", "content": "Based on the weather data provided, what activities would you recommend for today?"}
+],
+"grounding_data": {
+"location": "San Francisco",
+"date": "2024-03-15",
+"temperature": "68°F",
+"conditions": "Partly cloudy",
+"wind_speed": "10 mph"
+}
+}'
+```
+
+
+This request uses grounding data to provide context-specific information to the model, allowing for more accurate and relevant responses.
+
+## Deployment
+
+The project includes a `cloudbuild.yaml` file for easy deployment to Google Cloud Run. Make sure to set up your Google Cloud project and enable necessary APIs before deployment.
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## License
+
+[MIT License](LICENSE)
+
 

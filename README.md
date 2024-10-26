@@ -98,8 +98,7 @@ You can test the Vertex AI Proxy using curl commands. Here are some examples:
 
 ### 1. Basic Gemini-1.5-pro with Temperature Adjustment
 
-```
-bash
+```bash
 curl -X POST https://ai-proxy.cloud.typox.ai/v1/chat/completions \
 -H "Content-Type: application/json" \
 -d '{
@@ -113,8 +112,7 @@ curl -X POST https://ai-proxy.cloud.typox.ai/v1/chat/completions \
 This request uses the Gemini-1.5-pro model with a higher temperature (0.9) for more creative outputs.
 
 ### 2. Gemini-1.5-flash Multi-turn Conversation
-```
-bash
+```bash
 curl -X POST https://ai-proxy.cloud.typox.ai/v1/chat/completions \
 -H "Content-Type: application/json" \
 -d '{
@@ -130,8 +128,7 @@ curl -X POST https://ai-proxy.cloud.typox.ai/v1/chat/completions \
 This request demonstrates a multi-turn conversation using the Gemini-1.5-flash model, which is optimized for faster responses.
 
 ### 3. Grounding Example
-```
-bash
+```bash
 curl -X POST https://ai-proxy.cloud.typox.ai/v1/chat/completions \
 -H "Content-Type: application/json" \
 -d '{

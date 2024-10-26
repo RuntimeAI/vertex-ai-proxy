@@ -6,3 +6,4 @@ model_list:
 general_settings:
   vertex_project: autogenstudio-knn3
   vertex_location: asia-southeast1
+  server_workers: ${SERVER_WORKERS:-4}  # Default to 4 if not set

@@ -158,7 +158,7 @@ This request uses grounding data to provide context-specific information to the 
 from openai import OpenAI
 Initialize the client
 client = OpenAI(
-base_url="http://localhost:8000/v1",
+base_url="https://ai-proxy.cloud.typox.ai/v1",
 api_key="dummy_key" # Required but not used
 )
 Basic chat completion
@@ -168,7 +168,7 @@ messages=[
 {"role": "user", "content": "What is the capital of France?"}
 ]
 )
-print(response.choices[0].message.content)
+(response.choices[0].message.content)
 Using Google Search Retrieval
 response = client.chat.completions.create(
 model="vertex_ai/gemini-1.5-pro",
@@ -190,7 +190,7 @@ Initialize the chat model
 chat = ChatOpenAI(
 model="vertex_ai/gemini-1.5-pro",
 temperature=0.7,
-base_url="http://localhost:8000/v1",
+base_url="https://ai-proxy.cloud.typox.ai/v1",
 api_key="dummy-key",
 tools=[{"googleSearchRetrieval": {}}]
 )

@@ -149,6 +149,64 @@ curl -X POST https://ai-proxy.cloud.typox.ai/v1/chat/completions \
 
 This request uses grounding data to provide context-specific information to the model, allowing for more accurate and relevant responses.
 
+
+## Sample Usage
+
+### OpenAI Client
+
+```python
+from openai import OpenAI
+Initialize the client
+client = OpenAI(
+base_url="http://localhost:8000/v1",
+api_key="dummy_key" # Required but not used
+)
+Basic chat completion
+response = client.chat.completions.create(
+model="vertex_ai/gemini-1.5-pro",
+messages=[
+{"role": "user", "content": "What is the capital of France?"}
+]
+)
+print(response.choices[0].message.content)
+Using Google Search Retrieval
+response = client.chat.completions.create(
+model="vertex_ai/gemini-1.5-pro",
+messages=[
+{"role": "user", "content": "What is Bitcoin's latest price?"}
+],
+tool_choice="auto",
+tools=[{"googleSearchRetrieval": {}}]
+)
+print(response.choices[0].message.content)
+```
+
+### Langchain-OpenAI Client
+```python
+from langchain_openai import ChatOpenAI
+from langchain.chains import ConversationChain
+from langchain.memory import ConversationBufferMemory
+Initialize the chat model
+chat = ChatOpenAI(
+model="vertex_ai/gemini-1.5-pro",
+temperature=0.7,
+base_url="http://localhost:8000/v1",
+api_key="dummy-key",
+tools=[{"googleSearchRetrieval": {}}]
+)
+Create a conversation chain with memory
+conversation = ConversationChain(
+llm=chat,
+memory=ConversationBufferMemory(),
+verbose=True
+)
+Use the conversation chain
+response = conversation.predict(input="What is the capital of France?")
+print(response)
+```
+
+
+
 ## Deployment
 
 The project includes a `cloudbuild.yaml` file for easy deployment to Google Cloud Run. Make sure to set up your Google Cloud project and enable necessary APIs before deployment.

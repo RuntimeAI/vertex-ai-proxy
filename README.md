@@ -12,6 +12,8 @@ This document provides information about the available models and endpoints for 
 |------------|-------------|
 | vertex_ai/gemini-1.5-pro | Google's Gemini 1.5 Pro model via Vertex AI |
 | vertex_ai/gemini-1.5-flash | Google's Gemini 1.5 Flash model via Vertex AI |
+| vertex_ai/claude-3.5 | Claude 3.5 model via Vertex AI |
+| ollama/mistral:latest | Mistral model via Ollama |
 
 ## Demo Endpoint
 
@@ -218,5 +220,8 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 ## License
 
 [MIT License](LICENSE)
+
+
+
 
 

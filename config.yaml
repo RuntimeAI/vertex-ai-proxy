@@ -5,8 +5,15 @@ model_list:
   - model_name: vertex_ai/gemini-1.5-flash
     litellm_params:
       model: vertex_ai/gemini-1.5-flash
+  - model_name: vertex_ai/claude-3-sonnet
+    litellm_params:
+      model: vertex_ai/claude-3-sonnet
+      model_id: claude-3-sonnet@latest
+  - model_name: ollama/mistral:latest
+    litellm_params:
+      model: ollama/mistral:latest
 
 general_settings:
   vertex_project: autogenstudio-knn3
-  vertex_location: asia-southeast1
-  server_workers: ${SERVER_WORKERS:-4}  # Default to 4 if not set
+  vertex_location: us-central1
+  server_workers: 4

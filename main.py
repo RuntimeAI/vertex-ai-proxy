@@ -55,8 +55,12 @@ def vertex_completion(model: str, messages: List[Dict[str, str]],
             "model": model,
             "messages": messages,
             "temperature": temperature,
-            "credentials": credentials,
         }
+        
+        # Only add credentials for Vertex AI models
+        if model.startswith("vertex_ai/"):
+            # Pass the credentials token instead of the credentials object
+            completion_args["api_key"] = credentials.token
         
         if tools:
             completion_args["tools"] = tools
@@ -123,9 +127,13 @@ def root():
 
 if __name__ == "__main__":
     import uvicorn
+    
+    # Convert workers value to int, with a default of 4
+    workers = int(config["general_settings"].get("server_workers", 4))
+    
     uvicorn.run(
         app, 
         host="0.0.0.0", 
         port=8000,
-        workers=config["general_settings"].get("server_workers", 4)
+        workers=workers
     )

@@ -9,7 +9,7 @@ def test_google_search_retrieval():
     }
     # Update the tools format to match OpenAI's function calling format
     payload = {
-        "model": "vertex_ai/gemini-1.5-pro",
+        "model": "vertex_ai/claude-3-sonnet",
         "messages": [
             {"role": "user", "content": "What are the latest developments in quantum computing?"}
         ],
